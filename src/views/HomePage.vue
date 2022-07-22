@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type Todo from "@/types/Todo";
+type Props = {
+  addButtonText: string;
+  colorBg: string;
+};
+const props = defineProps<Props>();
 const inputVal = ref<string>("");
 const isCompleted = ref<boolean>(false);
 const todoArr = ref<Todo[]>([]);
@@ -31,8 +36,12 @@ console.log("todoArr :>> ", todoArr);
     <h1>TODO APP</h1>
     <form @submit.prevent="addItem()">
       <input v-model="inputVal" type="text" class="w-64 h-12 border" />
-      <button type="submit" class="h-12 px-12 ml-5 bg-yellow-200 border">
-        Add
+      <button
+        type="submit"
+        class="h-12 px-12 ml-5 border"
+        :style="`background-color:${props.colorBg};`"
+      >
+        {{ props.addButtonText }}
       </button>
     </form>
     <div v-for="item in todoArr" :key="item.id" class="flex space-x-5">
